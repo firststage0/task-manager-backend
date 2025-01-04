@@ -10,6 +10,7 @@ export class UsersService {
   create(createUserDto: CreateUserDto) {
     return this.prisma.user.create({
       data: {
+        username: createUserDto.username,
         email: createUserDto.email,
         password: createUserDto.password,
       },
@@ -20,9 +21,9 @@ export class UsersService {
     return this.prisma.user.findMany();
   }
 
-  findOne(id: string) {
+  findOne(username: string) {
     return this.prisma.user.findUnique({
-      where: { id },
+      where: { username },
     });
   }
 

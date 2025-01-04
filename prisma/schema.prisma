@@ -15,6 +15,7 @@ datasource db {
 
 model User {
   id       String @id @default(cuid())
+  username String @unique
   email    String @unique
   password String
   tasks    Task[]
@@ -27,7 +28,24 @@ model Task {
   priority    String?
   tag         String?
   isComleted  Boolean? @default(false)
+  isPinned    Boolean  @default(false)
   author      User     @relation(fields: [authorId], references: [id])
   authorId    String
+  board       Boards   @relation(fields: [boardId], references: [id])
+  boardId     Int
   createdAt   DateTime @default(now())
+  column      Columns? @relation(fields: [columnId], references: [id])
+  columnId    Int?
+}
+
+model Boards {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  Task Task[]
+}
+
+model Columns {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  Task Task[]
 }

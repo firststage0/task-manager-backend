@@ -4,5 +4,8 @@ export class CreateTaskDto {
   priority?: string;
   tag?: string;
   isComleted?: boolean;
+  isPinned?: boolean;
   authorId: string;
+  columnId?: number;
+  boardId?: number;
 }
