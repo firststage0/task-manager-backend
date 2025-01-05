@@ -7,5 +7,5 @@ export class CreateTaskDto {
   isPinned?: boolean;
   authorId: string;
   columnId?: number;
-  boardId?: number;
+  boardId: number;
 }

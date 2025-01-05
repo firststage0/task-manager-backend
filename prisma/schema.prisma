@@ -14,11 +14,12 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(cuid())
-  username String @unique
-  email    String @unique
+  id       String   @id @default(cuid())
+  username String   @unique
+  email    String   @unique
   password String
   tasks    Task[]
+  boards   Boards[]
 }
 
 model Task {
@@ -39,13 +40,18 @@ model Task {
 }
 
 model Boards {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-  Task Task[]
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  Task     Task[]
+  author   User      @relation(fields: [authorId], references: [id])
+  authorId String
+  columns  Columns[]
 }
 
 model Columns {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-  Task Task[]
+  id      Int    @id @default(autoincrement())
+  name    String @unique
+  Task    Task[]
+  board   Boards @relation(fields: [boardId], references: [id])
+  boardId Int
 }

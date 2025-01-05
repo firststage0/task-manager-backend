@@ -17,7 +17,7 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Get()
-  findAll(): Promise<Task[]> {
+  async findAll(): Promise<Task[]> {
     return this.tasksService.findAll();
   }
 
