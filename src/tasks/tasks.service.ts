@@ -19,6 +19,7 @@ export class TasksService {
     return this.prisma.task.create({
       data: {
         title: createTaskDto.title,
+        urlName: createTaskDto.title.toLowerCase().replace(/ /g, '-'),
         description: createTaskDto.description,
         priority: createTaskDto.priority,
         tag: createTaskDto.tag,

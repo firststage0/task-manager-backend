@@ -25,6 +25,7 @@ model User {
 model Task {
   id          Int      @id @default(autoincrement())
   title       String
+  urlName     String
   description String
   priority    String?
   tag         String?
@@ -42,6 +43,7 @@ model Task {
 model Boards {
   id       Int       @id @default(autoincrement())
   name     String    @unique
+  urlName  String
   Task     Task[]
   author   User      @relation(fields: [authorId], references: [id])
   authorId String
