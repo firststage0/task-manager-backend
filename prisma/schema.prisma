@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  priviewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -33,7 +34,6 @@ model Task {
   isPinned    Boolean  @default(false)
   author      User     @relation(fields: [authorId], references: [id])
   authorId    String
-  board       Boards   @relation(fields: [boardId], references: [id])
   boardId     Int
   createdAt   DateTime @default(now())
   column      Columns? @relation(fields: [columnId], references: [id])
@@ -44,7 +44,6 @@ model Boards {
   id       Int       @id @default(autoincrement())
   name     String    @unique
   urlName  String
-  Task     Task[]
   author   User      @relation(fields: [authorId], references: [id])
   authorId String
   columns  Columns[]

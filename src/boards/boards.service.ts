@@ -12,6 +12,13 @@ export class BoardsService {
       where: {
         authorId: userId,
       },
+      include: {
+        columns: {
+          include: {
+            Task: true,
+          },
+        },
+      },
     });
   }
 
