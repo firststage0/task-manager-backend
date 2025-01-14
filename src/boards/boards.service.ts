@@ -15,7 +15,7 @@ export class BoardsService {
       include: {
         columns: {
           include: {
-            Task: true,
+            tasks: true,
           },
         },
       },
@@ -26,6 +26,13 @@ export class BoardsService {
     return this.prisma.boards.findUnique({
       where: {
         id: id,
+      },
+      include: {
+        columns: {
+          include: {
+            tasks: true,
+          },
+        },
       },
     });
   }

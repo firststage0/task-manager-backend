@@ -15,13 +15,11 @@ export class BoardsController {
 
   @Get(':id')
   async findOne(@Param('id') id: number) {
-    console.log('Id is ', id);
     return this.boardsService.findOne(+id);
   }
 
   @Post()
   async create(@Body() createBoardDto: CreateBoardDto) {
-    console.log(createBoardDto);
     if (!createBoardDto.name) return { message: 'name is required' };
     if (!createBoardDto.authorId) return { message: 'authorId is required' };
 

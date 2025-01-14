@@ -24,19 +24,20 @@ model User {
 }
 
 model Task {
-  id          Int      @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   title       String
   urlName     String
-  description String
+  description String?     @default("")
   priority    String?
   tag         String?
-  isComleted  Boolean? @default(false)
-  isPinned    Boolean  @default(false)
-  author      User     @relation(fields: [authorId], references: [id])
+  isComleted  Boolean?    @default(false)
+  isPinned    Boolean     @default(false)
+  Checklist   Checklist[]
+  author      User        @relation(fields: [authorId], references: [id])
   authorId    String
   boardId     Int
-  createdAt   DateTime @default(now())
-  column      Columns? @relation(fields: [columnId], references: [id])
+  createdAt   DateTime    @default(now())
+  column      Columns?    @relation(fields: [columnId], references: [id])
   columnId    Int?
 }
 
@@ -49,10 +50,18 @@ model Boards {
   columns  Columns[]
 }
 
+model Checklist {
+  id          Int      @id @default(autoincrement())
+  name        String
+  taskId      Int
+  task        Task     @relation(fields: [taskId], references: [id])
+  isCompleted Boolean? @default(false)
+}
+
 model Columns {
   id      Int    @id @default(autoincrement())
-  name    String @unique
-  Task    Task[]
+  name    String @default("To do")
+  tasks   Task[]
   board   Boards @relation(fields: [boardId], references: [id])
   boardId Int
 }
