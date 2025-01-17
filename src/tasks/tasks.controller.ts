@@ -11,6 +11,7 @@ import {
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { Task } from '@prisma/client';
+import { UpdateTaskDto } from './dto/update-task.dto';
 
 @Controller('tasks')
 export class TasksController {
@@ -42,5 +43,19 @@ export class TasksController {
   @Post()
   create(@Body() createTaskDto: CreateTaskDto) {
     return this.tasksService.create(createTaskDto);
+  }
+
+  @Post('update-task')
+  async update(@Body() updateTaskDto: UpdateTaskDto) {
+    if (!updateTaskDto.id) return { message: 'id is required' };
+    const task = await this.tasksService.update(
+      updateTaskDto.id,
+      updateTaskDto,
+    );
+    if (task) {
+      return {
+        message: 'success',
+      };
+    }
   }
 }
