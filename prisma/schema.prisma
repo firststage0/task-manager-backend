@@ -32,6 +32,7 @@ model Task {
   tag         String?
   isComleted  Boolean?    @default(false)
   isPinned    Boolean     @default(false)
+  dueDate     DateTime?   @default(dbgenerated("CURRENT_DATE"))
   Checklist   Checklist[]
   author      User        @relation(fields: [authorId], references: [id])
   authorId    String

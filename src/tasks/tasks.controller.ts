@@ -58,4 +58,16 @@ export class TasksController {
       };
     }
   }
+
+  @Post('delete-task')
+  async delete(@Body() body: { id: number }) {
+    if (!body.id) return { message: 'id is required' };
+    const task = await this.tasksService.delete(body.id);
+    console.log(task);
+    if (task) {
+      return {
+        message: 'success',
+      };
+    }
+  }
 }
